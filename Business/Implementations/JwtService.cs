@@ -46,7 +46,7 @@ namespace Business.Implementations
 
         public async Task<LoginResponse?> Login(LoginRequest request)
         {
-            Cliente? cliente = await _unitOfWork.Clientes.GetFirstOrDefault(x=>x.Correo.ToLower().Equals(request.Email.ToLower()));
+            Usuario? cliente = await _unitOfWork.Clientes.GetFirstOrDefault(x=>x.Correo.ToLower().Equals(request.Email.ToLower()));
             if (cliente is null) return null;
             bool esValida = BCrypt.Net.BCrypt.Verify(request.Password, cliente.HashedPassword);
             if (!esValida) return null;

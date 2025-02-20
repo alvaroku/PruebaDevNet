@@ -30,7 +30,7 @@ namespace Business.Implementations
 
         public async Task<LoginResponse> Agregar(ClienteRequestDTO cliente)
         {
-            Cliente nuevo = _mapper.Map<Cliente>(cliente);
+            Usuario nuevo = _mapper.Map<Usuario>(cliente);
             nuevo.HashedPassword = BCrypt.Net.BCrypt.HashPassword(cliente.ClaveAcceso);
             await _unitOfWork.Clientes.Add(nuevo);
             await _unitOfWork.SaveChangesAsync();
@@ -45,7 +45,7 @@ namespace Business.Implementations
 
         public async Task Actualizar(int id, ActualizarClienteRequestDTO cliente)
         {
-            Cliente? actualizar = await _unitOfWork.Clientes.GetById(id);
+            Usuario? actualizar = await _unitOfWork.Clientes.GetById(id);
             if (actualizar != null) 
             {
                 _mapper.Map(cliente, actualizar);
@@ -56,7 +56,7 @@ namespace Business.Implementations
 
         public async Task Eliminar(int id)
         {
-            Cliente? cliente = await _unitOfWork.Clientes.GetById(id);
+            Usuario? cliente = await _unitOfWork.Clientes.GetById(id);
             if (cliente != null)
             {
                 _unitOfWork.Clientes.Delete(cliente);

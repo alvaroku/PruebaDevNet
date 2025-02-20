@@ -8,9 +8,9 @@ namespace Business
     {
         public MappingProfile()
         {
-            CreateMap<Cliente, ClienteDTO>();
-            CreateMap<ClienteRequestDTO, Cliente>();
-            CreateMap<ActualizarClienteRequestDTO, Cliente>();
+            CreateMap<Usuario, ClienteDTO>();
+            CreateMap<ClienteRequestDTO, Usuario>();
+            CreateMap<ActualizarClienteRequestDTO, Usuario>();
 
             CreateMap<Tienda, TiendaDTO>();
             CreateMap<TiendaRequestDTO, Tienda>();
