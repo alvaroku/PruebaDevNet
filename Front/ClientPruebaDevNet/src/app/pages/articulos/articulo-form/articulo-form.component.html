@@ -40,7 +40,7 @@
       <input id="imagen" type="file" class="form-control-file" (change)="onFileChange($event)" accept="image/*" />
     </div>
 
-    <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+    <button type="submit" class="btn btn-primary mt-2" [disabled]="isLoading">
       {{ isLoading ? 'Guardando...' : esEdicion ? 'Actualizar' : 'Guardar' }}
     </button>
   </form>

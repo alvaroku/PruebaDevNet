@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { ArticuloDTO } from '../models/models';
+import { ArticuloDTO, TiendaArticuloDTO } from '../models/models';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -15,6 +15,10 @@ export class ArticuloService {
 
   getArticulos(): Observable<ArticuloDTO[]> {
     return this.http.get<ArticuloDTO[]>(`${this.apiUrl}articulo`);
+  }
+
+  obtenerArticulos(): Observable<TiendaArticuloDTO[]> {
+    return this.http.get<TiendaArticuloDTO[]>(`${this.apiUrl}articulo/obtenerArticulos`);
   }
 
   obtenerArticuloPorId(id: number): Observable<ArticuloDTO> {

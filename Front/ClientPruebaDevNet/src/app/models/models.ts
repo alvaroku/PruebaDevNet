@@ -61,6 +61,15 @@ export interface ArticuloDTO {
   imagen: ResourceResponse;
 }
 
+export interface ArticuloEnCarritoDTO {
+  id: number;
+  codigo: string;
+  descripcion: string;
+  precio: number;
+  cantidad: number;
+  imagen: ResourceResponse;
+}
+
 export interface ArticuloRequestDTO {
   tiendaId: number;
   codigo: string;

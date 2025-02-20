@@ -5,15 +5,16 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { TiendaService } from '../../../services/tienda.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TiendaDTO, TiendaRequestDTO } from '../../../models/models';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-tienda-form',
-  imports: [LoaderComponent,CommonModule,ReactiveFormsModule],
+  imports: [LoaderComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './tienda-form.component.html',
   styleUrl: './tienda-form.component.css'
 })
 export class TiendaFormComponent implements OnInit {
-  isLoading:boolean = false
+  isLoading: boolean = false
   tiendaForm!: FormGroup;
   esEdicion = false;
   tiendaId: number | null = null;
@@ -23,7 +24,7 @@ export class TiendaFormComponent implements OnInit {
     private tiendaService: TiendaService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.tiendaId = this.route.snapshot.params['id'] ? +this.route.snapshot.params['id'] : null;
@@ -39,27 +40,41 @@ export class TiendaFormComponent implements OnInit {
     }
   }
 
-  cargarTienda(): void {
-    this.tiendaService.getTiendaIdPorId(this.tiendaId!).subscribe((tienda: TiendaDTO) => {
+  async cargarTienda() {
+    try {
+      this.isLoading = true
+      let tienda: TiendaDTO = await firstValueFrom(this.tiendaService.getTiendaIdPorId(this.tiendaId!))
       this.tiendaForm.patchValue(tienda);
-    });
+    } catch (error) {
+
+    } finally {
+      this.isLoading = false
+    }
   }
 
-  guardar(): void {
+  async guardar() {
     if (this.tiendaForm.invalid) return;
 
     const tienda: TiendaRequestDTO = this.tiendaForm.value
+    try {
+      this.isLoading = true
 
-    if (this.esEdicion) {
-      this.tiendaService.actualizarTienda(this.tiendaId??0,tienda).subscribe(() => {
+      if (this.esEdicion) {
+        await firstValueFrom(this.tiendaService.actualizarTienda(this.tiendaId ?? 0, tienda))
         alert('Tienda actualizada correctamente');
         this.router.navigate(['/tiendas']);
-      });
-    } else {
-      this.tiendaService.crearTienda(tienda).subscribe(() => {
+
+      } else {
+        await firstValueFrom(this.tiendaService.crearTienda(tienda))
         alert('Tienda creada correctamente');
         this.router.navigate(['/tiendas']);
-      });
+      }
+
+    } catch (error) {
+
+    } finally {
+      this.isLoading = false
     }
+
   }
 }

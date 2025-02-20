@@ -1,4 +1,35 @@
-<p>view-articulos works!</p>
 @if (isLoading) {
   <app-loader></app-loader>
   }
+
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let tiendaArticulo of tiendaArticulos">
+        <div class="card mb-4">
+          <div class="card-header">
+            <h5 class="card-title">Vendido por: {{ tiendaArticulo.tienda.sucursal }}</h5>
+            <p class="card-subtitle text-muted">{{ tiendaArticulo.tienda.direccion }}</p>
+          </div>
+          <div class="card-body">
+            <h6 class="card-title">Artículos:</h6>
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let articulo of tiendaArticulo.articulos">
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <strong>{{ articulo.codigo }} - {{ articulo.descripcion }}</strong><br />
+                    Precio: ${{ articulo.precio }} | Stock: {{ articulo.stock }}
+                  </div>
+                  <img *ngIf="articulo.imagen" [src]="getImagenUrl(articulo.imagen.id)" class="img-fluid" width="50" alt="Imagen" />
+                </div>
+                <div class="text-center mt-3">
+                  <button class="btn btn-primary" (click)="agregarAlCarrito(articulo)">
+                    Agregar al Carrito
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

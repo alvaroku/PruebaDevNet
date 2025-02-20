@@ -1,3 +1,25 @@
 @if (isLoading) {
 <app-loader></app-loader>
 }
+<div class="container">
+  <h3>Carrito de Compras</h3>
+
+  <div *ngIf="carrito.length === 0" class="alert alert-warning">
+    <p>Tu carrito está vacío.</p>
+  </div>
+
+  <div *ngIf="carrito.length > 0">
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let item of carrito">
+        <img *ngIf="item.imagen" [src]="getImagenUrl(item.imagen.id)" class="img-fluid" width="50" alt="Imagen" />
+        {{ item.codigo }} - {{ item.descripcion }} | Precio: ${{ item.precio }} | Cantidad: {{ item.cantidad }} | <b>Subtotal:</b> {{ item.cantidad*item.precio }}
+        <button class="btn btn-danger btn-sm float-right" (click)="quitarDelCarrito(item)">
+          Quitar
+        </button>
+      </li>
+    </ul>
+    <div class="mt-3">
+      <strong>Total: ${{ calcularTotal() }}</strong>
+    </div>
+  </div>
+</div>
