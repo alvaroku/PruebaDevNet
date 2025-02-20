@@ -1,0 +1,29 @@
+@if (isLoading) {
+  <app-loader></app-loader>
+  }
+
+<div class="container mt-4">
+  <h2>{{ esEdicion ? 'Editar Tienda' : 'Crear Tienda' }}</h2>
+
+  <form [formGroup]="tiendaForm" (ngSubmit)="guardar()">
+    <div class="mb-3">
+      <label for="sucursal" class="form-label">Sucursal</label>
+      <input type="text" id="sucursal" class="form-control" formControlName="sucursal" />
+      <div *ngIf="tiendaForm.get('sucursal')?.invalid && tiendaForm.get('sucursal')?.touched" class="text-danger">
+        La sucursal es obligatoria.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="direccion" class="form-label">Dirección</label>
+      <input type="text" id="direccion" class="form-control" formControlName="direccion" />
+      <div *ngIf="tiendaForm.get('direccion')?.invalid && tiendaForm.get('direccion')?.touched" class="text-danger">
+        La dirección es obligatoria.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="tiendaForm.invalid">
+      {{ esEdicion ? 'Actualizar' : 'Crear' }}
+    </button>
+  </form>
+</div>

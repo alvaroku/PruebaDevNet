@@ -2,8 +2,9 @@
 <app-loader></app-loader>
 }
 
-<div *ngIf="!isLoading && articulos.length > 0" class="container">
+<div class="container">
   <h2>Lista de Artículos</h2>
+  <button class="btn btn-primary" routerLink="/form-articulo">Nuevo</button>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -26,8 +27,7 @@
             <img *ngIf="articulo.imagen" [src]="getImagenUrl(articulo.imagen.id)" alt="Imagen del artículo" width="50" />
           </td>
           <td>
-            <button class="btn btn-info btn-sm">Ver</button>
-            <button class="btn btn-warning btn-sm">Editar</button>
+            <button class="btn btn-warning btn-sm" [routerLink]="['/form-articulo',articulo.id]">Editar</button>
             <button class="btn btn-danger btn-sm">Eliminar</button>
           </td>
         </tr>

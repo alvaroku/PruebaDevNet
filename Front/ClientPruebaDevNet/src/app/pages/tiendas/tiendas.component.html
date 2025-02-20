@@ -4,6 +4,7 @@
 
 <div *ngIf="!isLoading && tiendas.length > 0" class="container">
   <h2>Lista de Tiendas</h2>
+  <button class="btn btn-primary" routerLink="/form-tienda">Nuevo</button>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -18,9 +19,9 @@
           <td>{{ tienda.sucursal }}</td>
           <td>{{ tienda.direccion }}</td>
           <td>
-            <button class="btn btn-info btn-sm">Ver</button>
-            <button class="btn btn-warning btn-sm">Editar</button>
-            <button class="btn btn-danger btn-sm">Eliminar</button>
+            <button class="btn btn-info btn-sm" [routerLink]="['/articulos-tienda',tienda.id]">Ver productos</button>
+            <button class="btn btn-warning btn-sm" [routerLink]="['/form-tienda',tienda.id]">Editar</button>
+            <button class="btn btn-danger btn-sm" (click)="eliminar(tienda.id)">Eliminar</button>
           </td>
         </tr>
       </tbody>

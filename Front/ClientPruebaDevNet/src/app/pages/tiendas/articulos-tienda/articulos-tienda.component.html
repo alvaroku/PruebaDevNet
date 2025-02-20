@@ -1,0 +1,55 @@
+@if (isLoading) {
+  <app-loader></app-loader>
+  }
+
+  <div class="container mt-4">
+    <h2>Artículos en la tienda "{{ tiendaArticulos?.tienda?.sucursal }}"</h2>
+
+   <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Imagen</th>
+          <th>Fecha de alta</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let articulo of tiendaArticulos?.articulos">
+          <td>{{ articulo.codigo }}</td>
+          <td>{{ articulo.descripcion }}</td>
+          <td>{{ articulo.precio | currency }}</td>
+          <td>{{ articulo.stock }}</td>
+          <td>
+            <img *ngIf="articulo.imagen" [src]="getImagenUrl(articulo.imagen.id)" alt="Imagen del artículo" width="50" />
+          </td>
+          <td>{{ articulo.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>
+            <button class="btn btn-danger btn-sm" (click)="quitarArticulo(articulo.id)">
+              Quitar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+   </div>
+
+    <!-- Agregar nuevo artículo -->
+    <h3>Agregar artículo</h3>
+    <form [formGroup]="articuloForm" (ngSubmit)="agregarArticulo()">
+      <div class="form-group">
+        <label for="articulo">Seleccionar artículo:</label>
+        <select formControlName="articuloId" class="form-control">
+          <option value="" disabled selected>Seleccione un artículo</option>
+          <option *ngFor="let articulo of articulosDisponibles" [value]="articulo.id">
+            {{ articulo.codigo }} - {{ articulo.descripcion }} - ${{ articulo.precio }}
+          </option>
+        </select>
+      </div>
+      <button class="btn btn-success mt-2" type="submit">Agregar</button>
+    </form>
+  </div>

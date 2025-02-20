@@ -16,4 +16,16 @@ export class ArticuloService {
   getArticulos(): Observable<ArticuloDTO[]> {
     return this.http.get<ArticuloDTO[]>(`${this.apiUrl}articulo`);
   }
+
+  obtenerArticuloPorId(id: number): Observable<ArticuloDTO> {
+    return this.http.get<ArticuloDTO>(`${this.apiUrl}articulo/${id}`);
+  }
+
+  agregarArticulo(articulo: FormData): Observable<ArticuloDTO> {
+    return this.http.post<ArticuloDTO>(`${this.apiUrl}articulo`, articulo);
+  }
+
+  editarArticulo(id:number,articulo: FormData): Observable<ArticuloDTO> {
+    return this.http.put<ArticuloDTO>(`${this.apiUrl}articulo/${id}`, articulo);
+  }
 }

@@ -18,10 +18,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     switchMap((currentUser) => {
       const authReq = currentUser
         ? req.clone({
-            setHeaders: {
-              Authorization: `Bearer ${currentUser.token}`,
-            },
-          })
+          setHeaders: {
+            Authorization: `Bearer ${currentUser.token}`,
+          },
+        })
         : req;
 
       return next(authReq).pipe(
@@ -31,9 +31,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           if (error.error && error.error.message) {
             errorMessage = error.error.message;
           }
+
           switch (error.status) {
             case 401:
               authService.clearCurrentUser()
+              console.log(1)
               break;
             case 400:
             case 403:

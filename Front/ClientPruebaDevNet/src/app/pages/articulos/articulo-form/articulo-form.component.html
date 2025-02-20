@@ -1,0 +1,47 @@
+@if (isLoading) {
+  <app-loader></app-loader>
+  }
+<div class="container">
+  <h2>{{ esEdicion ? 'Editar Artículo' : 'Agregar Artículo' }}</h2>
+
+  <form [formGroup]="articuloForm" (ngSubmit)="onSubmit()">
+    <div class="form-group" *ngIf="!esEdicion">
+      <label for="tiendaId">Tienda</label>
+      <select id="tiendaId" class="form-control" formControlName="idTiendas" multiple>
+        <option value="" disabled selected>Seleccione una o más tiendas</option>
+        <option *ngFor="let tienda of tiendas" [value]="tienda.id">
+          {{ tienda.sucursal }} - {{ tienda.direccion }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="codigo">Código</label>
+      <input id="codigo" type="text" class="form-control" formControlName="codigo" />
+    </div>
+
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <input id="descripcion" type="text" class="form-control" formControlName="descripcion" />
+    </div>
+
+    <div class="form-group">
+      <label for="precio">Precio</label>
+      <input id="precio" type="number" step="0.01" class="form-control" formControlName="precio" />
+    </div>
+
+    <div class="form-group">
+      <label for="stock">Stock</label>
+      <input id="stock" type="number" class="form-control" formControlName="stock" />
+    </div>
+
+    <div class="form-group">
+      <label for="imagen">Imagen</label>
+      <input id="imagen" type="file" class="form-control-file" (change)="onFileChange($event)" accept="image/*" />
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="isLoading">
+      {{ isLoading ? 'Guardando...' : esEdicion ? 'Actualizar' : 'Guardar' }}
+    </button>
+  </form>
+</div>

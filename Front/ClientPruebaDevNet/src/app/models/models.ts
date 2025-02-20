@@ -6,6 +6,13 @@ export interface UsuarioDTO {
   direccion: string;
 }
 
+export interface ActualizarUsuarioRequestDTO {
+  nombre: string;
+  apellidos: string;
+  correo: string;
+  direccion: string;
+}
+
 export interface LoginRequest {
   email: string;
   password: string;
@@ -36,6 +43,11 @@ export interface TiendaDTO {
   direccion: string;
 }
 
+export interface TiendaRequestDTO {
+  sucursal: string;
+  direccion: string;
+}
+
 export interface ResourceResponse {
   id: number;
 }
@@ -47,4 +59,46 @@ export interface ArticuloDTO {
   precio: number;
   stock: number;
   imagen: ResourceResponse;
+}
+
+export interface ArticuloRequestDTO {
+  tiendaId: number;
+  codigo: string;
+  descripcion: string;
+  precio: number;
+  stock: number;
+  imagen?: File;
+}
+
+export interface ActualizarArticuloRequestDTO {
+  codigo: string;
+  descripcion: string;
+  precio: number;
+  stock: number;
+  imagen?: File;
+}
+
+export interface ArticuloEnTiendaDTO {
+  id: number;
+  codigo: string;
+  descripcion: string;
+  precio: number;
+  stock: number;
+  fecha:Date
+  imagen: ResourceResponse;
+}
+
+export interface TiendaArticuloDTO{
+  tienda:TiendaDTO
+  articulos:ArticuloEnTiendaDTO[]
+}
+
+export interface AgregarArticuloATiendaDTO{
+  tiendaId:number
+  articuloId:number
+}
+
+export interface QuitarArticuloATiendaDTO{
+  tiendaId:number
+  articuloId:number
 }
