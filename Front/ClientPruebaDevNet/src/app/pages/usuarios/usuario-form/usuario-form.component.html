@@ -1,0 +1,39 @@
+@if (isLoading) {
+  <app-loader></app-loader>
+  }
+
+  <div class="container">
+    <h2>{{ esEdicion ? 'Actualizar Usuario' : 'Registrar Usuario' }}</h2>
+
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" type="text" class="form-control" formControlName="nombre" required />
+      </div>
+
+      <div class="form-group">
+        <label for="apellidos">Apellidos</label>
+        <input id="apellidos" type="text" class="form-control" formControlName="apellidos" required />
+      </div>
+
+      <div class="form-group">
+        <label for="correo">Correo</label>
+        <input id="correo" type="email" class="form-control" formControlName="correo" required />
+      </div>
+
+      <div class="form-group">
+        <label for="direccion">Dirección</label>
+        <input id="direccion" type="text" class="form-control" formControlName="direccion" required />
+      </div>
+
+      <!-- Clave de acceso solo se muestra en creación -->
+      <div class="form-group" *ngIf="!esEdicion">
+        <label for="claveAcceso">Contraseña</label>
+        <input id="claveAcceso" type="password" class="form-control" formControlName="claveAcceso" required />
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="usuarioForm.invalid">
+        {{ esEdicion ? 'Actualizar' : 'Registrar' }}
+      </button>
+    </form>
+  </div>

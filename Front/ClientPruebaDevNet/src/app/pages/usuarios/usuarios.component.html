@@ -4,6 +4,7 @@
 
 <div *ngIf="!isLoading && usuarios.length > 0" class="container">
   <h2>Lista de Usuarios</h2>
+  <button class="btn btn-primary" routerLink="/form-cliente">Nuevo</button>
   <div class="table-responsive">
     <table class="table table-bordered table-striped">
       <thead>
@@ -22,9 +23,8 @@
           <td>{{ usuario.apellidos }}</td>
           <td>{{ usuario.direccion }}</td>
           <td>
-            <button class="btn btn-info btn-sm">Ver</button>
-            <button class="btn btn-warning btn-sm">Editar</button>
-            <button class="btn btn-danger btn-sm">Eliminar</button>
+            <button [disabled]="currentUser?.user?.id == usuario.id" class="btn btn-warning btn-sm" [routerLink]="['/form-cliente',usuario.id]">Editar</button>
+            <button [disabled]="currentUser?.user?.id == usuario.id" class="btn btn-danger btn-sm" (click)="eliminar(usuario.id)">Eliminar</button>
           </td>
         </tr>
       </tbody>
