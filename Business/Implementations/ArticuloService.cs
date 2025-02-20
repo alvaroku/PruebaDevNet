@@ -23,7 +23,7 @@ namespace Business.Implementations
 
         public async Task<IEnumerable<ArticuloDTO>> ObtenerTodos()
         {
-            return _mapper.Map<IEnumerable<ArticuloDTO>>(await _unitOfWork.Articulos.GetAll($"{nameof(Articulo.Imagen)}"));
+            return _mapper.Map<IEnumerable<ArticuloDTO>>(await _unitOfWork.Articulos.GetAll(includes: $"{nameof(Articulo.Imagen)}"));
         }
 
         public async Task<ArticuloDTO?> ObtenerPorId(int id)
@@ -42,13 +42,13 @@ namespace Business.Implementations
                 Resource resource = await _resourceService.UploadFile(imagen);
                 nuevo.Imagen = resource;
             }
-
             await _unitOfWork.Articulos.Add(nuevo);
+            await _unitOfWork.ArticuloTiendas.Add(articulo.IdTiendas.Split(",").Select(x=> new ArticuloTienda { Articulo = nuevo,TiendaId = int.Parse(x)}));
             await _unitOfWork.SaveChangesAsync();
             return _mapper.Map<ArticuloDTO>(nuevo);
         }
 
-        public async Task Actualizar(int id, ArticuloRequestDTO articulo, ResourceRequest? imagen)
+        public async Task Actualizar(int id, ActualizarArticuloRequestDTO articulo, ResourceRequest? imagen)
         {
             Articulo? actualizar = await _unitOfWork.Articulos.GetById(id,$"{nameof(Articulo.Imagen)}");
             if (actualizar != null)
@@ -100,5 +100,4 @@ namespace Business.Implementations
             return response;
         }
     }
-
 }

@@ -10,16 +10,18 @@ namespace Data.UnitOfWork
         public IRepository<Usuario> Clientes { get; }
         public IRepository<Tienda> Tiendas { get; }
         public IRepository<Articulo> Articulos { get; }
+        public IRepository<ArticuloTienda> ArticuloTiendas { get; }
         public IRepository<Resource> Resources { get; }
         public IRepository<Rol> Roles {  get; }
         public UnitOfWork(AppDbContext context, 
             IRepository<Usuario> cliente, IRepository<Tienda> tienda, 
-            IRepository<Articulo> articulo, IRepository<Resource> resource,
+            IRepository<Articulo> articulo, IRepository<ArticuloTienda> articuloTiendas, IRepository<Resource> resource,
             IRepository<Rol> rol)
         {
             _context = context;
             Clientes = cliente;
             Tiendas = tienda;
+            ArticuloTiendas = articuloTiendas;
             Articulos = articulo;
             Resources = resource;
             Roles = rol;

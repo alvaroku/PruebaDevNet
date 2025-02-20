@@ -1,5 +1,6 @@
 ﻿using Business;
 using Business.DTOs;
+using Business.Implementations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,6 +52,28 @@ namespace Api.Controllers
         {
             await _tiendaService.Eliminar(id);
             return NoContent();
+        }
+
+        [HttpGet("{tiendaId}/obtenerArticulos")]
+        public async Task<IActionResult> ObtenerArticulos(int tiendaId)
+        {
+            TiendaArticuloDTO articulo = await _tiendaService.ObtenerArticulos(tiendaId);
+            if (articulo == null) return NotFound();
+            return Ok(articulo);
+        }
+
+        [HttpPost("agregarArticuloATienda")]
+        public async Task<IActionResult> AgregarArticuloATienda(AgregarArticuloATiendaDTO agregarArticulo)
+        {
+            bool articulo = await _tiendaService.AgregarArticuloATienda(agregarArticulo);
+            return Ok(articulo);
+        }
+
+        [HttpPost("quitarArticuloATienda")]
+        public async Task<IActionResult> QuitarArticuloATienda(QuitarArticuloATiendaDTO quitarArticulo)
+        {
+            bool articulo = await _tiendaService.QuitarArticuloATienda(quitarArticulo);
+            return Ok(articulo);
         }
     }
 }

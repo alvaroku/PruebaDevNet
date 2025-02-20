@@ -28,7 +28,7 @@ namespace Data.UnitOfWork.RepositoryPattern
 
             return await query.FirstOrDefaultAsync(filter);
         }
-        public async Task<IEnumerable<T>> GetAll(string includes = "")
+        public async Task<IEnumerable<T>> GetAll(Expression<Func<T, bool>> filter = null,string includes = "")
         {
             IQueryable<T> query = _dbSet;
 
@@ -39,7 +39,8 @@ namespace Data.UnitOfWork.RepositoryPattern
                     query = query.Include(include);
                 }
             }
-
+            if(filter is not null)
+                return await query.Where(filter).ToListAsync();
             return await query.ToListAsync();
         }
         public async Task<T?> GetById(int id, string includes = "")
@@ -56,6 +57,7 @@ namespace Data.UnitOfWork.RepositoryPattern
             return await query.FirstOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
         public async Task Add(T entity) => await _dbSet.AddAsync(entity);
+        public async Task Add(IEnumerable<T> entities) => await _dbSet.AddRangeAsync(entities);
         public void Update(T entity) => _dbSet.Update(entity);
         public void Delete(T entity) => _dbSet.Remove(entity);
     }

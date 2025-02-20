@@ -53,7 +53,7 @@ namespace Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> ActualizarArticulo(int id, [FromForm] ArticuloRequestDTO articuloDto, IFormFile? imagen)
+        public async Task<IActionResult> ActualizarArticulo(int id, [FromForm] ActualizarArticuloRequestDTO articuloDto, IFormFile? imagen)
         {
             ResourceRequest? newResourceRequest = null;
             if (imagen != null)
