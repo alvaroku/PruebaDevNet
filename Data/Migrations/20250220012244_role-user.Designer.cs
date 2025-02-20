@@ -4,6 +4,7 @@ using Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250220012244_role-user")]
+    partial class roleuser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,38 +102,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Menus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Clientes",
-                            Ruta = "/clientes"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Tiendas",
-                            Ruta = "/tiendas"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Artículos",
-                            Ruta = "/articulos"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Ver Artículos",
-                            Ruta = "/view-articulos"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Carrito",
-                            Ruta = "/carrito"
-                        });
                 });
 
             modelBuilder.Entity("Entities.Resource", b =>
@@ -184,18 +155,6 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rols");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Administrador"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Cliente"
-                        });
                 });
 
             modelBuilder.Entity("Entities.RoleMenu", b =>
@@ -219,38 +178,6 @@ namespace Data.Migrations
                     b.HasIndex("RolId");
 
                     b.ToTable("RoleMenus");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            MenuId = 1,
-                            RolId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            MenuId = 2,
-                            RolId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            MenuId = 3,
-                            RolId = 1
-                        },
-                        new
-                        {
-                            Id = 4,
-                            MenuId = 4,
-                            RolId = 2
-                        },
-                        new
-                        {
-                            Id = 5,
-                            MenuId = 5,
-                            RolId = 2
-                        });
                 });
 
             modelBuilder.Entity("Entities.Tienda", b =>
