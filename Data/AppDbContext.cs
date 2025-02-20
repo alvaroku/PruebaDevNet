@@ -52,7 +52,7 @@ namespace Data
                     Nombre = "Alvaro",
                     Apellidos = "Kú",
                     Correo = "alvaro.ku.dev@gmail.com",
-                    Direccion = "Dirección de ejemplo",
+                    Direccion = "Calle 23B",
                     HashedPassword = "$2a$11$enh.jL6h61wI53GMt.adBOSlZiAopheQRU2ZR4BdlBX8.zYAaz5r.",//12345
                     RolId = 1 // Rol Administrador,
                 });

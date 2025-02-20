@@ -9,9 +9,9 @@ Este proyecto tiene dos partes: el **Frontend** y el **Backend**. A continuació
 
 ## Ejecución del Frontend
 
-1. Abre una terminal o consola de comandos.
-2. Navega al directorio donde se encuentra el proyecto del frontend:
-3. Reemplaza en el archivo /Front/ClientPruebaDevNet/src/environments/environment.ts la propiedad apiUrl con la url en la que se ejecute la api del backend
+1. Reemplaza en el archivo /Front/ClientPruebaDevNet/src/environments/environment.ts la propiedad apiUrl con la url en la que se ejecute la api del backend.
+2. Abre una terminal o consola de comandos.
+3. Navega al directorio donde se encuentra el proyecto del frontend
 
    ```bash
    cd Front/ClientPruebaDevNet/
@@ -20,8 +20,9 @@ Este proyecto tiene dos partes: el **Frontend** y el **Backend**. A continuació
 
 ## Ejecución del Backend
 
-1. Abre una terminal o consola de comandos.
-2. Navega al directorio donde se encuentra el proyecto del backend:
+1. Cambia la cadena de conexión de la base de datos en el archivo /Api/appsettings.Development.json en la propiedad: DefaultConnection.
+2. Abre una terminal o consola de comandos.
+3. Navega al directorio donde se encuentra el proyecto del backend:
 
    ```bash
    cd Api/

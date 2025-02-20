@@ -3,6 +3,8 @@ using Data.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Data
 {
@@ -14,7 +16,17 @@ namespace Data
             services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
 
             services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            options.ConfigureWarnings(
+                warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning)).UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            using (var serviceProvider = services.BuildServiceProvider())
+            {
+                using (var scope = serviceProvider.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                    dbContext.Database.Migrate();
+                }
+            }
 
             return services;
         }
