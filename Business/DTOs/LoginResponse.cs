@@ -2,7 +2,8 @@
 {
     public class LoginResponse
     {
-        public ClienteDTO Cliente { get; set; }
+        public UsuarioDTO User { get; set; }
+        public IEnumerable<MenuResponse> Menus { get; set; }
         public string Token {  get; set; }
     }
 }

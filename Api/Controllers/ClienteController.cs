@@ -20,7 +20,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetClientes()
         {
-            var clientes = await _clienteService.ObtenerTodos();
+            IEnumerable<UsuarioDTO> clientes = await _clienteService.ObtenerTodos();
             return Ok(clientes);
         }
 
@@ -34,15 +34,15 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AgregarCliente([FromBody] ClienteRequestDTO clienteDto)
+        public async Task<IActionResult> AgregarCliente([FromBody] UsuarioRequestDTO clienteDto)
         {
             LoginResponse nuevo = await _clienteService.Agregar(clienteDto);
-            return CreatedAtAction(nameof(GetCliente), new { nuevo.Cliente.Id }, nuevo);
+            return CreatedAtAction(nameof(GetCliente), new { nuevo.User.Id }, nuevo);
         }
 
         [Authorize]
         [HttpPut("{id}")]
-        public async Task<IActionResult> ActualizarCliente(int id, [FromBody] ActualizarClienteRequestDTO clienteDto)
+        public async Task<IActionResult> ActualizarCliente(int id, [FromBody] ActualizarUsuarioRequestDTO clienteDto)
         {
             await _clienteService.Actualizar(id, clienteDto);
             return NoContent();

@@ -16,7 +16,7 @@ namespace Business.Implementations
         private readonly IUnitOfWork _unitOfWork;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        public JwtService(IConfiguration config, IUnitOfWork unitOfWork,IMapper mapper)
+        public JwtService(IConfiguration config, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _config = config;
             _unitOfWork = unitOfWork;
@@ -46,14 +46,15 @@ namespace Business.Implementations
 
         public async Task<LoginResponse?> Login(LoginRequest request)
         {
-            Usuario? cliente = await _unitOfWork.Clientes.GetFirstOrDefault(x=>x.Correo.ToLower().Equals(request.Email.ToLower()));
+            Usuario? cliente = await _unitOfWork.Clientes.GetFirstOrDefault(x => x.Correo.ToLower().Equals(request.Email.ToLower()), $"{nameof(Usuario.Rol)}.{nameof(Rol.RoleMenus)}.{nameof(RoleMenu.Menu)}");
             if (cliente is null) return null;
             bool esValida = BCrypt.Net.BCrypt.Verify(request.Password, cliente.HashedPassword);
             if (!esValida) return null;
 
             LoginResponse response = new LoginResponse
             {
-                Cliente = _mapper.Map<ClienteDTO>(cliente),
+                User = _mapper.Map<UsuarioDTO>(cliente),
+                Menus = cliente.Rol.RoleMenus.Select(x =>_mapper.Map<MenuResponse>(x.Menu)),
                 Token = await GenerateToken(request.Email)
             };
             return response;

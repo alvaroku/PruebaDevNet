@@ -11,13 +11,18 @@ namespace Data.UnitOfWork
         public IRepository<Tienda> Tiendas { get; }
         public IRepository<Articulo> Articulos { get; }
         public IRepository<Resource> Resources { get; }
-        public UnitOfWork(AppDbContext context, IRepository<Usuario> cliente, IRepository<Tienda> tienda, IRepository<Articulo> articulo, IRepository<Resource> resource)
+        public IRepository<Rol> Roles {  get; }
+        public UnitOfWork(AppDbContext context, 
+            IRepository<Usuario> cliente, IRepository<Tienda> tienda, 
+            IRepository<Articulo> articulo, IRepository<Resource> resource,
+            IRepository<Rol> rol)
         {
             _context = context;
             Clientes = cliente;
             Tiendas = tienda;
             Articulos = articulo;
             Resources = resource;
+            Roles = rol;
         }
 
         public async Task SaveChangesAsync() => await _context.SaveChangesAsync();

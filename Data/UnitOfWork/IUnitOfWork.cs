@@ -9,6 +9,7 @@ namespace Data.UnitOfWork
         IRepository<Tienda> Tiendas { get; }
         IRepository<Articulo> Articulos { get; }
         IRepository<Resource> Resources { get; }
+        IRepository<Rol> Roles { get; }
         Task SaveChangesAsync();
     }
 }

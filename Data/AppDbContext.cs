@@ -5,7 +5,7 @@ namespace Data
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options):base(options) { }   
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Tienda> Tiendas { get; set; }
@@ -44,6 +44,18 @@ namespace Data
                 new RoleMenu { Id = 4, RolId = 2, MenuId = 4 }, // Ver Artículos
                 new RoleMenu { Id = 5, RolId = 2, MenuId = 5 }  // Carrito
             );
+
+            modelBuilder.Entity<Usuario>().HasData(
+                new Usuario
+                {
+                    Id = 1,
+                    Nombre = "Alvaro",
+                    Apellidos = "Kú",
+                    Correo = "alvaro.ku.dev@gmail.com",
+                    Direccion = "Dirección de ejemplo",
+                    HashedPassword = "$2a$11$enh.jL6h61wI53GMt.adBOSlZiAopheQRU2ZR4BdlBX8.zYAaz5r.",//12345
+                    RolId = 1 // Rol Administrador,
+                });
         }
     }
 }

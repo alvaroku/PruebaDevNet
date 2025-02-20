@@ -18,32 +18,37 @@ namespace Business.Implementations
             _authService = authService;
         }
 
-        public async Task<IEnumerable<ClienteDTO>> ObtenerTodos()
+        public async Task<IEnumerable<UsuarioDTO>> ObtenerTodos()
         {
-            return _mapper.Map<IEnumerable<ClienteDTO>>(await _unitOfWork.Clientes.GetAll());
+            return _mapper.Map<IEnumerable<UsuarioDTO>>(await _unitOfWork.Clientes.GetAll());
         }
 
-        public async Task<ClienteDTO?> ObtenerPorId(int id)
+        public async Task<UsuarioDTO?> ObtenerPorId(int id)
         {
-            return _mapper.Map<ClienteDTO>(await _unitOfWork.Clientes.GetById(id));
+            return _mapper.Map<UsuarioDTO>(await _unitOfWork.Clientes.GetById(id));
         }
 
-        public async Task<LoginResponse> Agregar(ClienteRequestDTO cliente)
+        public async Task<LoginResponse> Agregar(UsuarioRequestDTO cliente)
         {
             Usuario nuevo = _mapper.Map<Usuario>(cliente);
             nuevo.HashedPassword = BCrypt.Net.BCrypt.HashPassword(cliente.ClaveAcceso);
+
+            Rol? rol = await _unitOfWork.Roles.GetFirstOrDefault(x=>x.Name == "Cliente", $"{nameof(Rol.RoleMenus)}.{nameof(RoleMenu.Menu)}");
+            nuevo.Rol = rol;
+
             await _unitOfWork.Clientes.Add(nuevo);
             await _unitOfWork.SaveChangesAsync();
 
             LoginResponse response = new LoginResponse
             {
-                Cliente = _mapper.Map<ClienteDTO>(nuevo),
+                User = _mapper.Map<UsuarioDTO>(nuevo),
+                Menus = rol.RoleMenus.Select(x => _mapper.Map<MenuResponse>(x.Menu)),
                 Token = await _authService.GenerateToken(nuevo.Correo)
             };
             return response;
         }
 
-        public async Task Actualizar(int id, ActualizarClienteRequestDTO cliente)
+        public async Task Actualizar(int id, ActualizarUsuarioRequestDTO cliente)
         {
             Usuario? actualizar = await _unitOfWork.Clientes.GetById(id);
             if (actualizar != null) 
