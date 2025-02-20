@@ -10,7 +10,7 @@
         public Resource? Imagen { get; set; }
         public int Stock { get; set; }
         public ICollection<ArticuloTienda> ArticuloTiendas { get; set; }
-        public ICollection<ClienteArticulo> ClienteArticulos { get; set; }
+        public ICollection<UsuarioArticulo> UsuarioArticulos { get; set; }
     }
 
 }

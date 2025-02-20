@@ -5,7 +5,7 @@ namespace Data.UnitOfWork
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<Cliente> Clientes { get; }
+        IRepository<Usuario> Clientes { get; }
         IRepository<Tienda> Tiendas { get; }
         IRepository<Articulo> Articulos { get; }
         IRepository<Resource> Resources { get; }

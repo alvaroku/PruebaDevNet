@@ -7,11 +7,11 @@ namespace Data.UnitOfWork
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
-        public IRepository<Cliente> Clientes { get; }
+        public IRepository<Usuario> Clientes { get; }
         public IRepository<Tienda> Tiendas { get; }
         public IRepository<Articulo> Articulos { get; }
         public IRepository<Resource> Resources { get; }
-        public UnitOfWork(AppDbContext context, IRepository<Cliente> cliente, IRepository<Tienda> tienda, IRepository<Articulo> articulo, IRepository<Resource> resource)
+        public UnitOfWork(AppDbContext context, IRepository<Usuario> cliente, IRepository<Tienda> tienda, IRepository<Articulo> articulo, IRepository<Resource> resource)
         {
             _context = context;
             Clientes = cliente;
