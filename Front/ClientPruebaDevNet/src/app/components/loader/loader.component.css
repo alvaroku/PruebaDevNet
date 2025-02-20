@@ -1,24 +1,18 @@
-/* Estilo para el overlay */
 .overlay {
-  position: fixed; /* Hace que el overlay esté fijo en la pantalla */
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro con opacidad */
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
-  justify-content: center; /* Centra el spinner horizontalmente */
-  align-items: center; /* Centra el spinner verticalmente */
-  z-index: 1000000; /* Asegura que el overlay esté por encima de todo el contenido */
-  color: white; /* Color del texto */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000000;
+  color: white;
 }
 
-/* Estilo para el mat-spinner */
-.spinner {
-  margin-right: 10px;
-}
 
-/* Estilo opcional para el texto */
 .loading-text {
   font-size: 18px;
   margin-left: 20px;

@@ -50,7 +50,7 @@ namespace Business.Implementations
             if (cliente is null)
                 throw new Exception("Correo o contraseña incorrectos");
             bool esValida = BCrypt.Net.BCrypt.Verify(request.Password, cliente.HashedPassword);
-            if (!esValida) return null;
+            if (!esValida) throw new Exception("Correo o contraseña incorrectos");
 
             LoginResponse response = new LoginResponse
             {
