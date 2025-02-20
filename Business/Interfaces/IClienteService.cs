@@ -6,7 +6,8 @@ namespace Business
     {
         Task<IEnumerable<UsuarioDTO>> ObtenerTodos();
         Task<UsuarioDTO?> ObtenerPorId(int id);
-        Task<LoginResponse> Agregar(UsuarioRequestDTO cliente);
+        Task<LoginResponse> Registrar(UsuarioRequestDTO cliente);
+        Task<UsuarioDTO> Agregar(UsuarioRequestDTO cliente);
         Task Actualizar(int id, ActualizarUsuarioRequestDTO cliente);
         Task Eliminar(int id);
     }

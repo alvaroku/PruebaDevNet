@@ -28,7 +28,7 @@ namespace Business.Implementations
             return _mapper.Map<UsuarioDTO>(await _unitOfWork.Clientes.GetById(id));
         }
 
-        public async Task<LoginResponse> Agregar(UsuarioRequestDTO cliente)
+        public async Task<LoginResponse> Registrar(UsuarioRequestDTO cliente)
         {
             Usuario nuevo = _mapper.Map<Usuario>(cliente);
             nuevo.HashedPassword = BCrypt.Net.BCrypt.HashPassword(cliente.ClaveAcceso);
@@ -46,6 +46,20 @@ namespace Business.Implementations
                 Token = await _authService.GenerateToken(nuevo.Correo)
             };
             return response;
+        }
+
+        public async Task<UsuarioDTO> Agregar(UsuarioRequestDTO cliente)
+        {
+            Usuario nuevo = _mapper.Map<Usuario>(cliente);
+            nuevo.HashedPassword = BCrypt.Net.BCrypt.HashPassword(cliente.ClaveAcceso);
+
+            Rol? rol = await _unitOfWork.Roles.GetFirstOrDefault(x => x.Name == "Cliente", $"{nameof(Rol.RoleMenus)}.{nameof(RoleMenu.Menu)}");
+            nuevo.Rol = rol;
+
+            await _unitOfWork.Clientes.Add(nuevo);
+            await _unitOfWork.SaveChangesAsync();
+
+            return _mapper.Map<UsuarioDTO>(nuevo);
         }
 
         public async Task Actualizar(int id, ActualizarUsuarioRequestDTO cliente)

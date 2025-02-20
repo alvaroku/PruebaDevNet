@@ -28,16 +28,24 @@ namespace Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCliente(int id)
         {
-            var cliente = await _clienteService.ObtenerPorId(id);
+            UsuarioDTO? cliente = await _clienteService.ObtenerPorId(id);
             if (cliente == null) return NotFound();
             return Ok(cliente);
         }
 
-        [HttpPost]
+        [HttpPost("registro")]
         public async Task<IActionResult> AgregarCliente([FromBody] UsuarioRequestDTO clienteDto)
         {
-            LoginResponse nuevo = await _clienteService.Agregar(clienteDto);
+            LoginResponse nuevo = await _clienteService.Registrar(clienteDto);
             return CreatedAtAction(nameof(GetCliente), new { nuevo.User.Id }, nuevo);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> Crear([FromBody] UsuarioRequestDTO clienteDto)
+        {
+            UsuarioDTO nuevo = await _clienteService.Agregar(clienteDto);
+            return CreatedAtAction(nameof(GetCliente), new { nuevo.Id }, nuevo);
         }
 
         [Authorize]
