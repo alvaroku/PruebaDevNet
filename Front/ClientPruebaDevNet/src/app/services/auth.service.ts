@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   registro(credentials: UsuarioRequestDTO): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}cliente`, credentials);
+    return this.http.post<LoginResponse>(`${this.apiUrl}usuario`, credentials);
   }
   setCurrentUser(user: LoginResponse): void {
     this.currentUserSubject.next(user);

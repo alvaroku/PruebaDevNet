@@ -1,4 +1,41 @@
-<p>articulos works!</p>
 @if (isLoading) {
 <app-loader></app-loader>
 }
+
+<div *ngIf="!isLoading && articulos.length > 0" class="container">
+  <h2>Lista de Artículos</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th>Imagen</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let articulo of articulos">
+          <td>{{ articulo.codigo }}</td>
+          <td>{{ articulo.descripcion }}</td>
+          <td>{{ articulo.precio | currency }}</td>
+          <td>{{ articulo.stock }}</td>
+          <td>
+            <img *ngIf="articulo.imagen" [src]="getImagenUrl(articulo.imagen.id)" alt="Imagen del artículo" width="50" />
+          </td>
+          <td>
+            <button class="btn btn-info btn-sm">Ver</button>
+            <button class="btn btn-warning btn-sm">Editar</button>
+            <button class="btn btn-danger btn-sm">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="!isLoading && articulos.length === 0" class="alert alert-warning">
+  No se encontraron artículos.
+</div>

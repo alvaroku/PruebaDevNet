@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginResponse, UsuarioRequestDTO } from '../../models/models';
 import { LoaderComponent } from "../../components/loader/loader.component";
 import { firstValueFrom } from 'rxjs';
@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registro',
-  imports: [LoaderComponent,CommonModule,ReactiveFormsModule],
+  imports: [LoaderComponent,CommonModule,ReactiveFormsModule,RouterLink],
   templateUrl: './registro.component.html',
   styleUrl: './registro.component.css'
 })

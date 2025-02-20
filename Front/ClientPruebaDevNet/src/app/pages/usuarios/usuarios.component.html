@@ -1,0 +1,37 @@
+@if (isLoading) {
+  <app-loader></app-loader>
+  }
+
+<div *ngIf="!isLoading && usuarios.length > 0" class="container">
+  <h2>Lista de Usuarios</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Apellidos</th>
+          <th>Dirección</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.nombre }} {{ usuario.apellidos }}</td>
+          <td>{{ usuario.correo }}</td>
+          <td>{{ usuario.apellidos }}</td>
+          <td>{{ usuario.direccion }}</td>
+          <td>
+            <button class="btn btn-info btn-sm">Ver</button>
+            <button class="btn btn-warning btn-sm">Editar</button>
+            <button class="btn btn-danger btn-sm">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="!isLoading && usuarios.length === 0" class="alert alert-warning">
+  No se encontraron usuarios.
+</div>

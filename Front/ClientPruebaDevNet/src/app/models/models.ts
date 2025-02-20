@@ -29,3 +29,22 @@ export interface MenuResponse {
   name: string
   ruta: string
 }
+
+export interface TiendaDTO {
+  id: number;
+  sucursal: string;
+  direccion: string;
+}
+
+export interface ResourceResponse {
+  id: number;
+}
+
+export interface ArticuloDTO {
+  id: number;
+  codigo: string;
+  descripcion: string;
+  precio: number;
+  stock: number;
+  imagen: ResourceResponse;
+}

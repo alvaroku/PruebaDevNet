@@ -1,4 +1,33 @@
-<p>tiendas works!</p>
 @if (isLoading) {
-  <app-loader></app-loader>
-  }
+<app-loader></app-loader>
+}
+
+<div *ngIf="!isLoading && tiendas.length > 0" class="container">
+  <h2>Lista de Tiendas</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Sucursal</th>
+          <th>Dirección</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tienda of tiendas">
+          <td>{{ tienda.sucursal }}</td>
+          <td>{{ tienda.direccion }}</td>
+          <td>
+            <button class="btn btn-info btn-sm">Ver</button>
+            <button class="btn btn-warning btn-sm">Editar</button>
+            <button class="btn btn-danger btn-sm">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="!isLoading && tiendas.length === 0" class="alert alert-warning">
+  No se encontraron tiendas.
+</div>

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ClientesComponent } from './pages/clientes/clientes.component';
+import { ClientesComponent } from './pages/usuarios/usuarios.component';
 import { TiendasComponent } from './pages/tiendas/tiendas.component';
 import { ArticulosComponent } from './pages/articulos/articulos.component';
 import { ViewArticulosComponent } from './pages/view-articulos/view-articulos.component';
