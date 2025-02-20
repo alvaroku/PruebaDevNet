@@ -1,5 +1,6 @@
 ﻿using Business;
 using Business.DTOs;
+using Business.Implementations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -77,6 +78,14 @@ namespace Api.Controllers
         {
             await _articuloService.Eliminar(id);
             return NoContent();
+        }
+
+        [HttpGet("obtenerArticulos")]
+        public async Task<IActionResult> ObtenerArticulos()
+        {
+            IEnumerable<TiendaArticuloDTO> articulo = await _articuloService.ObtenerArticulos();
+            if (articulo == null) return NotFound();
+            return Ok(articulo);
         }
     }
 }

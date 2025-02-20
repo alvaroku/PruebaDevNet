@@ -99,5 +99,12 @@ namespace Business.Implementations
             }
             return response;
         }
+
+        public async Task<IEnumerable<TiendaArticuloDTO>> ObtenerArticulos()
+        {
+            IEnumerable<Tienda> tienda = await _unitOfWork.Tiendas.GetAll(x=>x.ArticuloTiendas.Any(),includes: $"{nameof(Tienda.ArticuloTiendas)}.{nameof(ArticuloTienda.Articulo)}.{nameof(Articulo.Imagen)}");
+            IEnumerable<TiendaArticuloDTO> articulos = _mapper.Map<IEnumerable<TiendaArticuloDTO>>(tienda);
+            return articulos;
+        }
     }
 }

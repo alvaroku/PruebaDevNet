@@ -17,6 +17,7 @@ namespace Business
             services.AddScoped<ITiendaService, TiendaService>();
             services.AddScoped<IArticuloService, ArticuloService>();
             services.AddScoped<IResourceService, ResourceService>();
+            services.AddScoped<ICarritoService, CarritoService>();
             services.AddScoped<IAuthService, JwtService>();
 
             services.AddAutoMapper(typeof(MappingProfile));

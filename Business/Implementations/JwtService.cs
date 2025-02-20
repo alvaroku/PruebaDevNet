@@ -47,7 +47,8 @@ namespace Business.Implementations
         public async Task<LoginResponse?> Login(LoginRequest request)
         {
             Usuario? cliente = await _unitOfWork.Clientes.GetFirstOrDefault(x => x.Correo.ToLower().Equals(request.Email.ToLower()), $"{nameof(Usuario.Rol)}.{nameof(Rol.RoleMenus)}.{nameof(RoleMenu.Menu)}");
-            if (cliente is null) return null;
+            if (cliente is null)
+                throw new Exception("Correo o contraseña incorrectos");
             bool esValida = BCrypt.Net.BCrypt.Verify(request.Password, cliente.HashedPassword);
             if (!esValida) return null;
 

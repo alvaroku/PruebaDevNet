@@ -1,4 +1,5 @@
 ﻿using Business.DTOs;
+using Entities;
 
 namespace Business
 {
@@ -10,5 +11,6 @@ namespace Business
         Task Actualizar(int id, ActualizarArticuloRequestDTO articulo, ResourceRequest? imagen);
         Task Eliminar(int id);
         Task<ResourceResponseArticle> GetImagen(int id);
+        Task<IEnumerable<TiendaArticuloDTO>> ObtenerArticulos();
     }
 }
