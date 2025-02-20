@@ -20,7 +20,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetArticulos()
         {
-            var articulos = await _articuloService.ObtenerTodos();
+            IEnumerable<ArticuloDTO> articulos = await _articuloService.ObtenerTodos();
             return Ok(articulos);
         }
 

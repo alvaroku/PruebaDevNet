@@ -20,7 +20,7 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTiendas()
         {
-            var tiendas = await _tiendaService.ObtenerTodos();
+            IEnumerable<TiendaDTO> tiendas = await _tiendaService.ObtenerTodos();
             return Ok(tiendas);
         }
 

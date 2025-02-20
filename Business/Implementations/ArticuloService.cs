@@ -90,12 +90,12 @@ namespace Business.Implementations
         public async Task<ResourceResponseArticle> GetImagen(int id)
         {
             ResourceResponseArticle response = new ResourceResponseArticle();
-            Articulo? articulo = await _unitOfWork.Articulos.GetById(id, $"{nameof(Articulo.Imagen)}");
+            Resource? resource = await _unitOfWork.Resources.GetById(id);
 
-            if (articulo != null && articulo.ImagenId.HasValue && articulo.Imagen is not null)
+            if (resource != null)
             {
-                response.Stream = await _resourceService.DownloadFile(articulo.Imagen.Path, articulo.Imagen.Name, articulo.Imagen.Extension);
-                response.ContentType = articulo.Imagen.ContentType;
+                response.Stream = await _resourceService.DownloadFile(resource.Path, resource.Name, resource.Extension);
+                response.ContentType = resource.ContentType;
             }
             return response;
         }
