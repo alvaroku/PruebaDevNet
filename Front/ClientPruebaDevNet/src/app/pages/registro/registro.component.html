@@ -1,1 +1,56 @@
-<p>registro works!</p>
+@if (isLoading) {
+<app-loader></app-loader>
+}
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="text-center">Registro</h3>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+            <div class="mb-3">
+              <label class="form-label">Nombre</label>
+              <input type="text" class="form-control" formControlName="nombre" placeholder="Tu nombre">
+              <small class="text-danger"
+                *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
+                Nombre es requerido
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Apellidos</label>
+              <input type="text" class="form-control" formControlName="apellidos" placeholder="Tus apellidos">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" formControlName="correo" placeholder="correo@ejemplo.com">
+              <small class="text-danger"
+                *ngIf="registerForm.get('correo')?.invalid && registerForm.get('correo')?.touched">
+                Ingresa un correo válido
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Clave de Acceso</label>
+              <input type="password" class="form-control" formControlName="claveAcceso" placeholder="********">
+              <small class="text-danger"
+                *ngIf="registerForm.get('claveAcceso')?.invalid && registerForm.get('claveAcceso')?.touched">
+                Mínimo 5 caracteres
+              </small>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Dirección</label>
+              <input type="text" class="form-control" formControlName="direccion" placeholder="Tu dirección">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Registrarse</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
